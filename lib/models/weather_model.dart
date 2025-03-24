@@ -15,6 +15,16 @@ class WeatherModel {
       required this.weatherStateName});
 
   factory WeatherModel.fromJson(dynamic data) {
+    if (data == null ||
+        data['forecast'] == null ||
+        data['forecast']['forecastday'] == null ||
+        data['forecast']['forecastday'][0] == null ||
+        data['forecast']['forecastday'][0]['day'] == null ||
+        data['current'] == null ||
+        data['current']['last_updated'] == null) {
+      throw Exception('Invalid data format');
+    }
+
     var jsonData = data['forecast']['forecastday'][0]['day'];
 
     return WeatherModel(
